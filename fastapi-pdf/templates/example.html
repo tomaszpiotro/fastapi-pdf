@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ filename }}</title>
+    <style>
+        body {
+          font-size: 13px;
+        }
+        @page {
+          size: A4;
+          margin: 0.5cm;
+        }
+        .newspaper {
+          -webkit-column-count: 2;
+          -moz-column-count: 2;
+          column-count: 2;
+          text-align: justify;
+        }
+        .main__h1{
+          text-align: center;
+          text-transform: uppercase;
+          margin: 0;
+        }
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+        a:link {
+            color: #3b6ced;
+            text-decoration:none;
+        }
+        ul.list-hyphen > li:before {
+            content: "–";
+            position: absolute;
+            margin-left: -1.1em;
+        }
+        .list-hyphen {
+            list-style-type: none;
+        }
+        .list-dot {
+            list-style-type: disc;
+        }
+        input[type=checkbox] {
+            display: none;
+        }
+        input[type=checkbox] + label span {
+            border: 1px solid #000;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin: 0 4px 0 0;
+            padding: 2px;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+        input[type=checkbox] + label div {
+            border: 1px solid #000;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin: 0 4px 0 8px;
+            padding: 2px;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+        .checked:after {
+            content: '';
+            left: 3px;
+            top: -2px;
+            width: 5px;
+            height: 14px;
+            border: solid black;
+            border-width: 0 3px 3px 0;
+            border-top: none;
+            transform: rotate(45deg);
+            display: block;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<h1 class="main__h1">Very important declaration</h1>
+<div class="row">
+    <div class="" style="font-size: large;float:left">
+      <div>
+          <strong>First and last name: </strong><span>{{ first_name or '_______________' }} {{ last_name or '____________________' }}</span>
+      </div>
+      <div>
+        <strong>E-mail: </strong><span>{{ email or '____________________' }}</span>
+      </div>
+      <div>
+        <strong>Phone number: </strong><span>{{ phone_number or '____________________' }}</span>
+      </div>
+  </div>
+      <img style="width: 200px; float: right; margin-bottom: 10px" src="data:image/png;base64,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" alt="logo">
+</div>
+<div>
+    <span>I declare that I have read the content Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquid amet commodi consequuntur cupiditate, ducimus hic laborum minima mollitia, nemo nobis, optio pariatur porro possimus quas quibusdam recusandae temporibus ut!</span>
+</div>
+
+<div style="text-align: right">
+    <div style="margin-top: 10px">___________________________________</div>
+    <div>Date and signature</div>
+</div>
+<div>
+    <div><strong style="text-decoration: underline;">*Star heading Lorem ipsum dolor sit amet, consectetur adipisicing elit:</strong></div>
+    <span>I declare that I have read the content Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquid amet commodi consequuntur cupiditate, ducimus hic laborum minima mollitia, nemo nobis, optio pariatur porro possimus quas quibusdam recusandae temporibus ut!</span>
+</div>
+
+<div style="text-align: right">
+    <div style="margin-top: 10px">___________________________________</div>
+    <div>Date and signature</div>
+</div>
+<div class="newspaper">
+    <h3><strong style="text-decoration: underline">PERSONAL DATA</strong></h3>
+    <span>Pursuant to Art. 13 of the Regulation of the European Parliament i Of the Council (EU) 2016/679 of 27 April 2016 on protection natural persons in connection with the processing of personal data - general regulation on the protection of personal data (Journal of Laws UE L 119/1 of 4 May 2016) Lorem informs: </span>
+    <div>
+        <ul style="padding-left: 10px" class="list-hyphen">
+            <li>The administrator of your data (name, surname, e-mail address, telephone number) is Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad commodi delectus deserunt distinctio doloremque ducimus, eum expedita incidunt iure maxime natus, nostrum numquam optio porro quam quasi quibusdam reiciendis sed!. The administrator can be contacted via e-mail: <a href="mailto: admin@example.com">admin@example.com</a> or by letter to the address indicated above.</li>
+            <li>We have appointed a Data Protection Officer with whom you can contact regarding the processing of your personal data at the e-mail address: <a href="data@example.com">data@example.com</a>.</li>
+            <li>
+                Extra bullet points example:
+                <ul style="padding-left: 10px" class="list-dot">
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aspernatur, atque cumque deserunt earum est et expedita illo ipsam molestiae officia quam quo</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aspernatur, atque cumque deserunt earum est et expedita illo ipsam molestiae officia quam quo</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aspernatur, atque cumque deserunt earum est et expedita illo ipsam molestiae officia quam quo</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aspernatur, atque cumque deserunt earum est et expedita illo ipsam molestiae officia quam quo</li>
+                </ul>
+            </li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores atque blanditiis corporis dignissimos error facilis minima nostrum, odit ratione sed!</li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi asperiores at atque commodi corporis, cumque dolor dolorem doloremque, ea eos esse eveniet excepturi fugit illum inventore labore nam nulla obcaecati odit omnis perferendis praesentium quisquam reiciendis repellendus sapiente suscipit unde ut velit veniam vitae. Perferendis?</li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad maiores obcaecati: <a href="https://example.com/">https://example.com/</a> .</li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus at expedita quis repellendus sapiente sunt tempore temporibus veniam.</li>
+            <li>
+                Bullet list 2:
+                <ul style="padding-left: 10px" class="list-dot">
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut facere maxime, quae reiciendis repellat ullam voluptatem.</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem hic magnam magni maiores pariatur placeat?</li>
+                </ul>
+            </li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt libero praesentium quam? Cumque, sequi, temporibus. Aperiam, architecto commodi!</li>
+        </ul>
+    </div>
+    <div style="text-decoration: underline">You can withdraw your consent at any time at any time. If you want to withdraw your consent, please provide us with this information.</div>
+    <h3><strong style="text-decoration: underline">USER CONSENT</strong></h3>
+    <div>
+        <ul style="padding-left: 0; list-style: none">
+            <li>
+                <input type="checkbox" />
+                <label>
+                    <span {% if first_consent %}class="checked"{% endif %}></span>
+                </label>
+                First agreement Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae qui totam ut? A, aliquam amet assumenda culpa cumque dignissimos enim error eum fuga incidunt, ipsum itaque laboriosam minima modi, molestiae mollitia nemo non nulla obcaecati officiis pariatur perspiciatis placeat quas quibusdam quis quod rem repudiandae sed totam vitae voluptatibus voluptatum
+            </li>
+        </ul>
+    </div>
+    <div><strong>Agreement title Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque ex nihil quibusdam ratione, suscipit tempore.</strong></div>
+    <ul style="padding-left: 0; list-style: none" >
+        <li>
+            <input type="checkbox" />
+            <label>
+                <span {% if second_consent %}class="checked"{% endif %}></span>
+            </label>
+            Second agreement Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, aspernatur dolor facilis fugit laborum nesciunt nobis optio pariatur porro reprehenderit sint totam velit voluptatibus? Aperiam aut commodi error nulla velit?
+        </li>
+        <li>
+            <input type="checkbox" />
+            <label>
+                <span {% if third_consent %}class="checked"{% endif %}></span>
+            </label>
+            Third agreement Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium aliquam culpa dignissimos dolorem doloremque ducimus eius excepturi expedita facilis fugit harum hic incidunt modi mollitia nam necessitatibus neque non numquam odit perferendis placeat porro, possimus quaerat quidem quisquam quos reiciendis rem repudiandae sint soluta temporibus unde veniam voluptas voluptatem.
+        </li>
+    </ul>
+    <h3><strong style="text-decoration: underline">EXTRA AGREEMENTS</strong></h3>
+    <div><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci architecto culpa delectus dicta dolorum eos error id nisi similique voluptatum!</strong></div>
+    <div><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, quibusdam.</strong></div>
+    <div>
+        <input type="checkbox" />
+        <label>
+            <span {% if fourth_consent %}class="checked"{% endif %}></span>
+        </label>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti enim illo labore molestias, mollitia natus nemo quidem ullam vel vero! <a href="https://example.com/">https://example.com/</a>
+    </div>
+    <div style="text-align: right">
+        <div>___________________________________</div>
+        <div>Date and signature</div>
+        <div style="margin-top: 10px">___________________________________</div>
+        <div>Staff signature</div>
+    </div>
+
+</div>
+</body>
+</html>
